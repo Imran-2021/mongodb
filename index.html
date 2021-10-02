@@ -35,6 +35,7 @@
 
     <script>
         function loadProducts(){
+           
             fetch("/products")
         .then(res=>res.json())
         .then(data=>{
@@ -42,8 +43,10 @@
             for (let i = 0; i < data.length; i++) {
                 const element = data[i];
                 const p= document.createElement("p")
-            p.innerHTML=`<b>Product Name</b> : ${element.name} , <b>Product Price</b> : ${element.price}, product Quantity : ${element.quantity} <button onclick="loadProduct('${element._id}')"> Update </button> <button onclick="deleteProduct('${element._id}')">Delete</button>`;
+            p.innerHTML=`<b>Product Name</b> : ${element.name} , <b>Product Price</b> : ${element.price}, product Quantity : ${element.quantity} <button onclick="loadProduct('${element._id}')"> Update </button> <button onclick="deleteProduct(event,'${element._id}')">Delete</button>`;
+            document.getElementById("container").innerHTML=""
             document.getElementById("container").appendChild(p)
+
             }
         })
         }
@@ -76,17 +79,22 @@
             })
             .then(res=>res.json())
             .then(data=>{
-                console.log("successfully update .. .. .. .. .. !!");
+                if(data){
+                    loadProducts()
+                }
             })
         }
 
-        function deleteProduct(id){
+        function deleteProduct(event,id){
+            // console.log(event.target.parentNode);
             fetch(`/delete/${id}`,{
                 method: 'DELETE'
             })
             .then(res=>res.json())
             .then(data=>{
-                console.log("deleted successfully. !!");
+                if(data){
+                    event.target.parentNode.style.display = 'none';
+                }
             })
            
         }

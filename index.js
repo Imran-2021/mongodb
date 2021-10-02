@@ -33,7 +33,8 @@ client.connect(err => {
     // console.log(product);
     collection.insertOne(product)
     .then(data=>{
-      res.send("data added")
+      // res.send("data added")
+      res.redirect('/')
       console.log(data);
     })
   })
@@ -55,6 +56,9 @@ client.connect(err => {
     }
     
     )
+    .then(result=>{
+      res.send(result.modifiedCount>0)
+    })
 
   })
 
@@ -62,7 +66,7 @@ client.connect(err => {
     // console.log(req.params.id);
     collection.deleteOne({_id: ObjectId(req.params.id)})
     .then((result)=>{
-      console.log(result);
+      res.send(result.deletedCount>0)
     })
   })
   console.log("database Connected");
