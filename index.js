@@ -11,7 +11,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 app.use(bodyParser.json())
 
 app.get('/',(req, res)=>{
-    res.send("hellow , i am using mongo-db ")
+    res.sendFile(__dirname + '/index.html')
 })
 
 app.use(bodyParser.urlencoded({ extended: false }))
