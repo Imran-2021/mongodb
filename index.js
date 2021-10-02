@@ -19,12 +19,16 @@ client.connect(err => {
   const collection = client.db("backenddb").collection("datadb");
   // perform actions on the collection object
 
-  collection.insertOne({
-    name:"white-paper",price :25 ,
+  //post ---- 
+  app.post('/addProduct',(req, res)=>{
+    collection.insertOne({
+      name:"white-paper",price :25 ,
+    })
+    .then(() => {
+        console.log("one product added");
+    })
   })
-  .then(() => {
-      console.log("one product added");
-  })
+
   console.log("database Connected");
 });
 
