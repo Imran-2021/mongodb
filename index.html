@@ -17,6 +17,9 @@
     </style>
 </head>
 <body>
+    <div style="margin:10px" id="container">
+        
+    </div>
     <p class="asdf">look mama ! i am learning web development !!</p>
     <div style="margin:10px">
             <form action="/addProduct" method="post">
@@ -26,5 +29,23 @@
             <input type="submit" value="addProduct" name="addProduct">
             </form>
     </div>
+
+
+    <script>
+        function loadProducts(){
+            fetch("/products")
+        .then(res=>res.json())
+        .then(data=>{
+
+            for (let i = 0; i < data.length; i++) {
+                const element = data[i];
+                const p= document.createElement("p")
+            p.innerHTML=`Product Name : ${element.name} , Product Price : ${element.price}, product Quantity : ${element.quantity}`;
+            document.getElementById("container").appendChild(p)
+            }
+        })
+        }
+        loadProducts()
+    </script>
 </body>
 </html>

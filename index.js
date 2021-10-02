@@ -17,6 +17,13 @@ app.get('/',(req, res)=>{
 app.use(bodyParser.urlencoded({ extended: false }))
 client.connect(err => {
   const collection = client.db("backenddb").collection("datadb");
+  //get data --- 
+  app.get('/products', (req, res)=>{
+    collection.find({}).limit(5)
+    .toArray((err, result)=>{
+      res.send(result);
+    })
+  })
   // perform actions on the collection object
 
   //post ---- 
