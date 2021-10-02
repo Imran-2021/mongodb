@@ -45,6 +45,19 @@ client.connect(err => {
     })
   })
 
+  app.patch('/update/:id', (req, res)=>{
+    let price =req.body.price;
+    let quantity =req.body.quantity;
+    collection.updateOne({_id: ObjectId(req.params.id)},
+    {
+      $set: { price:price,quantity:quantity },
+      $currentDate: { "lastModified": true }
+    }
+    
+    )
+
+  })
+
   app.delete("/delete/:id",(req,res)=>{
     // console.log(req.params.id);
     collection.deleteOne({_id: ObjectId(req.params.id)})
