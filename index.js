@@ -37,6 +37,14 @@ client.connect(err => {
       console.log(data);
     })
   })
+
+  app.get("/product/:id", (req, res)=>{
+    collection.find({_id: ObjectId(req.params.id)})
+    .toArray((err, result)=>{
+      res.send(result[0]);
+    })
+  })
+
   app.delete("/delete/:id",(req,res)=>{
     // console.log(req.params.id);
     collection.deleteOne({_id: ObjectId(req.params.id)})
