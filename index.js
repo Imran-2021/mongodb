@@ -1,5 +1,6 @@
 const express = require('express')
 const { MongoClient } = require('mongodb');
+const ObjectId = require('mongodb').ObjectId;
 var cors = require('cors')
 var bodyParser = require('body-parser')
 const app = express()
@@ -19,7 +20,7 @@ client.connect(err => {
   const collection = client.db("backenddb").collection("datadb");
   //get data --- 
   app.get('/products', (req, res)=>{
-    collection.find({}).limit(5)
+    collection.find({})
     .toArray((err, result)=>{
       res.send(result);
     })
@@ -36,9 +37,17 @@ client.connect(err => {
       console.log(data);
     })
   })
-
+  app.delete("/delete/:id",(req,res)=>{
+    // console.log(req.params.id);
+    collection.deleteOne({_id: ObjectId(req.params.id)})
+    .then((result)=>{
+      console.log(result);
+    })
+  })
   console.log("database Connected");
 });
+
+
 
 app.listen(3000,()=>{
     console.log("done !!");
