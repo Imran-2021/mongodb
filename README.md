@@ -12,6 +12,7 @@ commands - </br>
 -hit google how to maintain client and server side in one folder . </br>
 -Express cors middleware(hit google ) -> npm install cors </br>
 -express bodyparser -> npm install body-parser</br>
+-install mongodb - npm i mongodb
 -</br>
 -</br>
 -</br>
